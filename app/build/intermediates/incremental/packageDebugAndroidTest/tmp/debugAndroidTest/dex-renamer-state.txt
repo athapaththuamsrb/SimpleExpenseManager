@@ -1,0 +1,4 @@
+#Mon May 09 22:52:25 IST 2022
+base.0=F\:\\uom_ACA\\sem4_work\\Data base\\Min project\\190058R\\SimpleExpenseManager\\app\\build\\intermediates\\dex\\debugAndroidTest\\mergeDexDebugAndroidTest\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
