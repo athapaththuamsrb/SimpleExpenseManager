@@ -51,16 +51,6 @@ public class ApplicationTest  {
         assertTrue(expenseManager.getAccountNumbersList().contains("35791R"));
     }
 
-    @Test
-    public void  addTestTransaction(){
-        int numberOfTransaction=expenseManager.getTransactionLogs().size();
-        try {
-            expenseManager.updateAccountBalance("35791R", 9,5,2022, ExpenseType.EXPENSE,"2000");
-            assertEquals(numberOfTransaction+1,expenseManager.getTransactionLogs().size());
-        } catch (InvalidAccountException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Test
     public void  addTestTransactionExpense(){
