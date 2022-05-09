@@ -16,14 +16,71 @@
 
 package lk.ac.mrt.cse.dbs.simpleexpensemanager;
 
+
+
 import android.app.Application;
+import android.content.Context;
 import android.test.ApplicationTestCase;
+
+import androidx.test.core.app.ApplicationProvider;
+
+import org.junit.BeforeClass;
+import org.junit.Test;
+import  static org.junit.Assert.assertEquals;
+import  static org.junit.Assert.assertTrue;
+
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.ExpenseManager;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.PersistentExpenseManager;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.exception.ExpenseManagerException;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.exception.InvalidAccountException;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.ExpenseType;
 
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
  */
-public class ApplicationTest extends ApplicationTestCase<Application> {
-    public ApplicationTest() {
-        super(Application.class);
+public class ApplicationTest {
+    private static ExpenseManager expenseManager;
+
+    @BeforeClass
+    public static void setExpenseManager() throws ExpenseManagerException {
+        Context context= ApplicationProvider.getApplicationContext();
+        expenseManager=new PersistentExpenseManager(context);
+    }
+    @Test
+    public void  createTestAccount(){
+        expenseManager.addAccount("35791R", "BOC", "Supun Athapathhthu", 800000.0);
+        assertTrue(expenseManager.getAccountNumbersList().contains("35791R"));
+    }
+
+    @Test
+    public void  addTestTransaction(){
+        int numberOfTransaction=expenseManager.getTransactionLogs().size();
+        try {
+            expenseManager.updateAccountBalance("35791R", 9,5,2022, ExpenseType.EXPENSE,"2000");
+            assertEquals(numberOfTransaction+1,expenseManager.getTransactionLogs().size());
+        } catch (InvalidAccountException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void  addTestTransactionExpense(){
+        int numberOfTransaction=expenseManager.getTransactionLogs().size();
+        try {
+            expenseManager.updateAccountBalance("35791R", 9,5,2022, ExpenseType.EXPENSE,"2000");
+            assertEquals(numberOfTransaction+1,expenseManager.getTransactionLogs().size());
+        } catch (InvalidAccountException e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void  addTestTransactionIncome(){
+        int numberOfTransaction=expenseManager.getTransactionLogs().size();
+        try {
+            expenseManager.updateAccountBalance("35791R", 9,5,2022, ExpenseType.INCOME,"2000");
+            assertEquals(numberOfTransaction+1,expenseManager.getTransactionLogs().size());
+        } catch (InvalidAccountException e) {
+            e.printStackTrace();
+        }
     }
 }
